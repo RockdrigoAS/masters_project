@@ -1,21 +1,21 @@
-Project: Neurophysiology Analysis Pipeline for Sleep Deprivation Study
-This repository contains a some analysis pipeline developed for my M.Sc. thesis in Neurobiology. The project's goal was to characterize the effects of sleep deprivation on brain activity and behavior by analyzing multi-channel Local Field Potential (LFP) and behavioral data from a crayfish model.
+Project: Neurophysiology Analysis for Sleep Deprivation Study
+This repo collects analysis code from my M.Sc. project (plus ongoing MI work) on the neural and behavioral effects of sleep deprivation in Procambarus clarkii. It spans raw signal acquisition, LFP preprocessing, time–frequency analysis, information-theoretic connectivity, and a small behavioral metric—aimed at a clear, end-to-end workflow others can inspect and reuse.
 
-The repository includes a multi-language workflow with the following core components:
+What’s inside
 
-1. Signal Acquisition and Spike Analysis (MATLAB)
-Scripts for handling raw, multi-channel neural data acquisition signals.
+MATLAB · Acquisition & spike demo
+NI-DAQ script to record ~11-s LFP epochs at 2 kHz from two channels while outputting a 10 Hz light-pulse train (5–6 s). A companion script filters (HP 50 Hz + 60 Hz harmonics notch), optionally rectifies, segments a 3-s window (1 s pre / 1 s stim / 1 s post), and counts spike-like peaks and their magnitudes per channel.
 
-A pipeline for detecting and analyzing single-unit activity (spike analysis)..
+Python · LFP preprocessing (Notebook)
+Batch pipeline for multichannel LFP: 3–60 Hz band-pass, 60 Hz notch (+ harmonics), ICA artifact reduction, z-score, 30-s epoching; outputs clean per-channel .npy.
 
-2. LFP Preprocessing and Analysis (Python)
-A Python-based pipeline for preprocessing raw LFP data, including filtering, artifact handling, and epoching for further analysis.
+Python · STFT spectrograms
+Loads CSV trials across conditions (control / deprivation / recovery), averages a selected channel, and produces globally normalized spectrograms for fair across-condition power comparison.
 
-Time-frequency analysis using Short-Time Fourier Transform (STFT) to generate spectrograms and quantify power changes in different neural frequency bands over time.
+Python · Connectivity via MI / Total Correlation
+Computes pairwise MI (ordinal estimator, embedding dim 4–5, base 2) and multivariate MI (total correlation via KSG k-NN) on LFP epochs (epochs × channels × samples). Outputs per-epoch MI matrices and multivariate-MI trajectories; optional lag sweeps probe delayed interactions.
 
-Mutual information and multivariate MI to cuantify 
+Python · Behavioral state-space shift
+Quantifies the distance between control vs sleep-deprived triad trajectories (centroid shift) and tests its significance (one-sample t-test).
 
-3. Behavioral Analysis (Python)
-A script for the quantification of alterations in recognition memory after sleep.
-
-Together, these tools form a multi-level workflow—from raw signal processing and population-level LFP dynamics and behavioral correlation—designed to provide a comprehensive characterization of the neural and behavioral signatures of sleep deprivation.
+Together, these tools form a multi-level workflow—from raw signal processing and population-level LFP dynamics and behavioral correlation—designed to provide a comprehensive characterization of the neural and behavioral signatures of sleep deprivation in the crayfish.
