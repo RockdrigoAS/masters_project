@@ -18,4 +18,7 @@ Computes pairwise MI (ordinal estimator, embedding dim 4–5, base 2) and multiv
 Python · Behavioral state-space shift
 Quantifies the distance between control vs sleep-deprived triad trajectories (centroid shift) and tests its significance (one-sample t-test).
 
+Netlogo · An Agent-Based Model (ABM) of social dominance. 
+This project, completed for an ABM course, models the emergent social dynamics (dominant hierarchy) in a crayfish triads.
+
 Together, these tools form a multi-level workflow—from raw signal processing and population-level LFP dynamics and behavioral correlation—designed to provide a comprehensive characterization of the neural and behavioral signatures of sleep deprivation in the crayfish.
